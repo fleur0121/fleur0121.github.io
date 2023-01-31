@@ -1,5 +1,4 @@
 /*
-Name: Fuka Nagata
 Date: January 30th
 Description: This program asks the user to answer a five-question quiz, indicates whether the answer is correct or incorrect, and finally displays the number of correct answers and the percentage of correct answers.
 */
