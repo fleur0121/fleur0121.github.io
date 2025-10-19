@@ -1,0 +1,269 @@
+.projects {
+  min-height: 100vh;
+  padding: 5rem 2rem;
+  background: linear-gradient(to bottom, #f8f9fa, #fff);
+  position: relative;
+  transition: background 220ms ease, color 220ms ease;
+  /* control tag rows height across cards */
+  --tags-rows: 2; /* how many rows to reserve for tags */
+  --tag-row-height: 40px; /* approx chip height incl. padding */
+  --tag-row-gap: 8px; /* gap between rows */
+  /* control description lines to align tag start */
+  --desc-lines: 5;
+  --desc-line-height: 1.6; /* must match .project-content > p line-height */
+}
+
+.dark .projects {
+  background: linear-gradient(to bottom, #0f1115, #141821);
+}
+
+/* removed top seam fade to eliminate page-like division */
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+}
+
+.projects-header h2 {
+  font-size: 3rem; /* explicit to match Background */
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.emoji {
+  display: inline-block;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.projects-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch; /* ensure items stretch to equal row height */
+}
+
+.project-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  display: flex; /* make card a column flex container */
+  flex-direction: column;
+  height: 100%;
+}
+
+.dark .project-card {
+  background: #171a23;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.project-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-emoji {
+  font-size: 5rem;
+  z-index: 2;
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+.project-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.dark .project-content h3 {
+  color: #eaeaea;
+}
+
+.project-content > p {
+  color: #666;
+  line-height: var(--desc-line-height);
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--desc-lines);
+  -webkit-box-orient: vertical;
+  line-clamp: var(--desc-lines);
+  overflow: hidden;
+  /* Reserve the same vertical space on every card so tags start aligned */
+  max-height: calc(var(--desc-lines) * 1em * var(--desc-line-height));
+  min-height: calc(var(--desc-lines) * 1em * var(--desc-line-height));
+}
+
+.dark .project-content > p {
+  color: #b7b7b7;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tag-row-gap);
+  margin-bottom: 1.5rem;
+  /* fix consistent height so buttons align even if tag counts differ */
+  height: calc(
+    var(--tags-rows) * var(--tag-row-height) + (var(--tags-rows) - 1) *
+      var(--tag-row-gap)
+  );
+  align-content: flex-start;
+  overflow: hidden; /* hide overflowed rows to keep height equal */
+}
+
+.tag {
+  background: var(--c-accent-grad);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap; /* keep each chip in one line for stable row height */
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background: #f0f0f0;
+  color: #333;
+  border: 2px solid transparent;
+}
+
+.dark .project-link {
+  background: #23283a;
+  color: #eaeaea;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.project-link:hover {
+  background: #e0e0e0;
+  border-color: #667eea;
+}
+
+.project-link.demo {
+  background: var(--c-accent-grad);
+  color: white;
+}
+
+.project-link.demo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    var(--card-color, #667eea) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: soft-light;
+}
+
+@media (max-width: 768px) {
+  .projects {
+    padding: 3rem 1rem;
+    /* on mobile, reserve only one row to avoid large gaps */
+    --tags-rows: 1;
+    /* allow a bit more description lines on mobile for readability */
+    --desc-lines: 3;
+  }
+
+  .projects-header h2 {
+    font-size: 2rem; /* keep in sync with Background */
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .project-content {
+    padding: 1.5rem;
+  }
+}
+
+/* スクロールに合わせてふわっと現れるアニメーション用のスタイル */
+.projects-grid > * {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
