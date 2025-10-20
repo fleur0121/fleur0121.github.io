@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  simpleshell-server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - IDLE_TIMEOUT_MS=300000
+      - CORS_ORIGIN=false
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 256m
+    pids_limit: 256
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'

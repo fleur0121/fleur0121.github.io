@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+  traefik:
+    image: traefik:v3.1
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.email=you@example.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    restart: unless-stopped
+
+  simpleshell-server:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    environment:
+      - IDLE_TIMEOUT_MS=300000
+      - CORS_ORIGIN=false
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.simpleshell.rule=Host(`your.domain`) && PathPrefix(`/api/pty`)"
+      - "traefik.http.routers.simpleshell.entrypoints=websecure"
+      - "traefik.http.routers.simpleshell.tls=true"
+      - "traefik.http.routers.simpleshell.tls.certresolver=letsencrypt"
+      - "traefik.http.services.simpleshell.loadbalancer.server.port=8080"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 256m
+    pids_limit: 256
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"

@@ -1,0 +1,19 @@
+.pd-backdrop { position: fixed; inset: 0; background: rgba(240,244,250,0.65); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 28px; z-index: 1000; }
+.pd-dialog { width: min(1100px, 96vw); max-height: 92vh; background: #fff; color: #0b0f17; border-radius: 18px; box-shadow: 0 24px 80px rgba(0,0,0,.18), 0 2px 10px rgba(0,0,0,.06); overflow: hidden; position: relative; }
+.pd-close { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 10px; border: none; background: rgba(0,0,0,0.06); color: #111827; display: grid; place-items: center; cursor: pointer; }
+.pd-close:hover { background: rgba(0,0,0,0.1); }
+.pd-header { display: flex; align-items: center; gap: 12px; padding: 22px; color: #0b0f17; }
+.pd-emoji { font-size: 38px; }
+.pd-title { font-size: 32px; font-weight: 900; letter-spacing: 0.2px; }
+.pd-content { padding: 22px; overflow: auto; max-height: calc(92vh - 140px); }
+.pd-desc { font-size: 1.2rem; line-height: 1.9; margin: 8px 0 16px; color: #0b1220; font-weight: 600; }
+.pd-section { margin: 10px 0 8px; }
+.pd-list { margin: 0; padding-left: 1.25rem; display: grid; gap: 8px; }
+.pd-list li { font-size: 1.15rem; line-height: 1.9; font-weight: 600; color: #0b1220; }
+.pd-quote { margin-top: 14px; padding: 14px 16px; border-left: 4px solid #2563eb; background: #eff6ff; color: #102a6b; border-radius: 6px; font-weight: 700; font-size: 1.15rem; }
+
+.pd-tech { margin-top: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; }
+.pd-tech-title { font-weight: 800; color: #0f172a; margin-bottom: 6px; letter-spacing: 0.2px; }
+.pd-tech-text { color: #1f2937; font-weight: 600; font-size: 1.05rem; }
+@media (max-width: 640px) { .pd-dialog { width: 96vw; } .pd-title { font-size: 22px; } }
+
